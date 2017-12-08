@@ -1,10 +1,12 @@
 package com.example.activemq.producer;
 
+import org.apache.activemq.command.ActiveMQMapMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Queue;
 import java.util.Date;
@@ -24,10 +26,26 @@ public class ActiveMqProducer {
     @Autowired
     private Queue queue;
 
-    public void sendMapMessage() {
-        Map map = new HashMap();
-        map.put("time", new Date().toString());
-        map.put("type", "map");
-        this.jmsMessagingTemplate.convertAndSend(this.queue, map);
+    public void sendMapMessage() throws JMSException {
+        MapMessage map = new ActiveMQMapMessage();
+        map.setString("time", new Date().toString());
+        map.setString("type", "map");
+        jmsMessagingTemplate.convertAndSend(this.queue, map);
+    }
+
+    public void sendMapMessageFilterRed() throws JMSException {
+        MapMessage map = new ActiveMQMapMessage();
+        map.setStringProperty("color", "red");
+        map.setString("time", new Date().toString());
+        map.setString("type", "map");
+        jmsMessagingTemplate.convertAndSend(this.queue, map);
+    }
+
+    public void sendMapMessageFilterGreen() throws JMSException {
+        MapMessage map = new ActiveMQMapMessage();
+        map.setStringProperty("color", "Green");
+        map.setString("time", new Date().toString());
+        map.setString("type", "map");
+        jmsMessagingTemplate.convertAndSend(this.queue, map);
     }
 }

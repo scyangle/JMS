@@ -16,11 +16,19 @@ import java.util.Map;
  */
 @Component
 public class ActiveMqConsumer {
-    @JmsListener(destination = "sample.queue")
-    public void receiveQueue(Message message) throws JMSException {
+    @JmsListener(destination = "sample.queue",selector ="color = 'red'" )
+    public void receiveQueueRed(Message message) throws JMSException {
         MapMessage map = (MapMessage) message;
-        System.out.println(map.getString("time"));
-        System.out.println(map.getString("type"));
-        System.out.println(map.toString());
+        System.out.print(map.getString("time")+" : ");
+        System.out.print(map.getString("type")+" : ");
+        System.out.println(map.getStringProperty("color"));
+    }
+
+    @JmsListener(destination = "sample.queue",selector ="color = 'Green'" )
+    public void receiveQueueGreen(Message message) throws JMSException {
+        MapMessage map = (MapMessage) message;
+        System.out.print(map.getString("time")+" : ");
+        System.out.print(map.getString("type")+" : ");
+        System.out.println(map.getStringProperty("color"));
     }
 }

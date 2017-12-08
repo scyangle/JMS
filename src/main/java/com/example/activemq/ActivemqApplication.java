@@ -18,6 +18,8 @@ public class ActivemqApplication implements CommandLineRunner {
 	public void run(String... strings) throws Exception {
 		for (int i=0;i<100;i++) {
 			activeMqProducer.sendMapMessage();
+			activeMqProducer.sendMapMessageFilterGreen();
+			activeMqProducer.sendMapMessageFilterRed();
 		}
 	}
 
