@@ -20,17 +20,27 @@ public class ActivemqApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-		//<editor-fold desc="sample.queue">
-		for (int i=0;i<100;i++) {
-			activeMqProducer.sendMapMessage();
-			activeMqProducer.sendMapMessageFilterGreen();
-			activeMqProducer.sendMapMessageFilterRed();
-		}
-		//</editor-fold>
-
         //<editor-fold desc="VirtualTopicColor">
-        for (int i = 0; i < 100; i++) {
-            virtualColorProducer.sendTopicColorMessage(String.valueOf(i));
+        Thread virtualThread=new Thread(){
+            @Override
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                    try {
+                        virtualColorProducer.sendTopicColorMessage(String.valueOf(i));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        virtualThread.start();
+        //</editor-fold>
+
+        //<editor-fold desc="sample.queue">
+        for (int i=0;i<100;i++) {
+            activeMqProducer.sendMapMessage();
+            activeMqProducer.sendMapMessageFilterGreen();
+            activeMqProducer.sendMapMessageFilterRed();
         }
         //</editor-fold>
     }
