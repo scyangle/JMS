@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
-import java.util.Map;
 
 /**
  * Description:
