@@ -30,4 +30,12 @@ public class ActiveMqConsumer {
         System.out.print(map.getString("type")+" : ");
         System.out.println(map.getStringProperty("color"));
     }
+
+    @JmsListener(destination = "sample.queue")
+    public void receiveQueueSimple(Message message) throws JMSException {
+        MapMessage map = (MapMessage) message;
+        System.out.print(map.getString("time")+" : ");
+        System.out.print(map.getString("type")+" : ");
+        System.out.println(map.getStringProperty("color"));
+    }
 }

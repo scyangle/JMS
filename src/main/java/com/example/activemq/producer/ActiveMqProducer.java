@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Queue;
